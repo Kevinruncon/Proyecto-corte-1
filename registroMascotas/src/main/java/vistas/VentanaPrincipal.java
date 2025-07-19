@@ -2,7 +2,7 @@
 
 import java.awt.BorderLayout;
 import vistas.VentanaRegistro;
-
+import vistas.VentanaPrincipal;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,16 +14,14 @@ import vistas.VentanaRegistro;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
+   private VentanaRegistro ventanaRegistro;
     public VentanaPrincipal() {
         initComponents();
         setTitle("Sistema de Gestión Clínica Veterinaria");
         setLocationRelativeTo(this);
         setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
+        ventanaRegistro = new VentanaRegistro(this);
         
     }
 
@@ -47,7 +45,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelPrincipal.setBackground(new java.awt.Color(0, 102, 102));
+        panelPrincipal.setBackground(new java.awt.Color(132, 169, 140));
 
         lblTittle.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
         lblTittle.setText("Clinica Veterinaria");
@@ -55,9 +53,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         separador.setBackground(new java.awt.Color(0, 0, 0));
         separador.setForeground(new java.awt.Color(0, 0, 0));
 
-        panelSecundario.setBackground(new java.awt.Color(0, 153, 153));
+        panelSecundario.setBackground(new java.awt.Color(202, 210, 197));
 
-        bttServicios.setBackground(new java.awt.Color(204, 204, 204));
+        bttServicios.setBackground(new java.awt.Color(82, 121, 111));
         bttServicios.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         bttServicios.setText("Servicios");
         bttServicios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255)));
@@ -67,7 +65,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        bttRegistrarCliente.setBackground(new java.awt.Color(204, 204, 204));
+        bttRegistrarCliente.setBackground(new java.awt.Color(82, 121, 111));
         bttRegistrarCliente.setFont(new java.awt.Font("Dialog", 3, 24)); // NOI18N
         bttRegistrarCliente.setText("Registrar Cliente");
         bttRegistrarCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 204, 255)));
@@ -159,8 +157,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void bttRegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttRegistrarClienteActionPerformed
         // TODO add your handling code here:
-          new VentanaRegistro(); // Abre VentanaRegistro
-          dispose(); // Cierra esta ventana si quieres
+    this.setVisible(false);     // oculta Ventana1
+    ventanaRegistro.setVisible(true);  // muestra Ventana2 // Cierra esta ventana si quieres
             
 
     }//GEN-LAST:event_bttRegistrarClienteActionPerformed

@@ -30,7 +30,7 @@ public class MascotaControlador {
 
 
     public Mascotas buscarMascota(int id ) {
-        if (id < 5 ) {
+        if (id < 0) {
             return null;
         }
         return dao.buscarMascota(id);
@@ -48,17 +48,17 @@ public class MascotaControlador {
         return dao.actualizarMascota(actualizada);
     }
 
-//        public boolean eliminarMascota(Mascotas mascota) {
-//        if (mascota.getId()<0 ) {
-//            return false;
-//        }
-//
-//        Mascotas m = dao.buscarMascota(mascota);
-//        if (m != null) {
-//            return dao.eliminarMascota(m);
-//        }
-//        return false;
-//    }
+        public boolean eliminarMascota(int id) {
+        if (id < 0 ) {
+            return false;
+        }
+
+        Mascotas m = dao.buscarMascota(id);
+        if (m != null) {
+            return dao.eliminarMascota(id);
+        }
+        return false;
+    }
     
     public ArrayList<Mascotas> buscarPorDocumentoPropietario(String documento) {
     if (documento != null && !documento.equals("")) {

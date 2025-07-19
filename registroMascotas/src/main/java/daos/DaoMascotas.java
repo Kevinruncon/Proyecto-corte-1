@@ -44,9 +44,9 @@ public class DaoMascotas {
 }
 
 
-    public boolean eliminarMascota(Mascotas mascota) {
+    public boolean eliminarMascota(int id) {
         for (Mascotas m : listaMascotas) {
-            if (m.getId() == mascota.getId()) {
+            if (m.getId() ==  id) {
                 listaMascotas.remove(m);
                 return true;
             }

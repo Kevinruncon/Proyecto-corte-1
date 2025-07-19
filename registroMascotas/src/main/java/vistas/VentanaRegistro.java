@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 package vistas;
 
 import controladores.MascotaControlador;
@@ -14,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Mascotas;
 import modelo.Propietario;
 import controladores.PropietarioControlador;
+import vistas.VentanaPrincipal;
 
 /**
  *
@@ -25,76 +25,74 @@ public class VentanaRegistro extends javax.swing.JFrame {
     private DaoPropietario DaoPropietario;
     private PropietarioControlador propietarioControlador = new PropietarioControlador();
     private MascotaControlador mascotaControlador = new MascotaControlador();
-    
+    private VentanaPrincipal ventanaPrincipal;
 
     /**
      * Creates new form VentanaRegistro
      */
-    public VentanaRegistro() {
+    public VentanaRegistro(VentanaPrincipal ventanaPrincipal) {
+        this.ventanaPrincipal = ventanaPrincipal;
         initComponents();
         setTitle("Registro de Clientes");
         setLocationRelativeTo(this);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setVisible(true);
         DaoMascota = new DaoMascotas();
         DaoPropietario = new DaoPropietario();
         ListarMascota();
         ListarPropietario();
         DefaultTableModel modeloPropietarios = new DefaultTableModel(
-        new Object[]{"Nombre", "Documento", "Teléfono"},
-        0 );
+                new Object[]{"Nombre", "Documento", "Teléfono"},
+                0);
         tablePropietario.setModel(modeloPropietarios);
-    
+
         // Columnas para la tabla de mascotas
         DefaultTableModel modeloMascotas = new DefaultTableModel(
-        new Object[]{"ID", "Nombre", "Especie", "Edad", "Documento Propietario"},
-        0 // No filas al inicio
-);
+                new Object[]{"ID", "Nombre", "Especie", "Edad", "Documento Propietario"},
+                0 // No filas al inicio
+        );
         tablamas.setModel(modeloMascotas);
     }
-    
+
     private void ListarMascota() {
-    String[] columnas = {"ID", "Nombre", "Especie", "Edad", "Documento Propietario"};
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
+        String[] columnas = {"ID", "Nombre", "Especie", "Edad", "Documento Propietario"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
-    ArrayList<Mascotas> lista = mascotaControlador.obtenerTodasMascotas();
+        ArrayList<Mascotas> lista = mascotaControlador.obtenerTodasMascotas();
 
-    if (lista != null && !lista.isEmpty()) {
-        for (Mascotas m : lista) {
-            Object[] fila = {
-                m.getId(),
-                m.getNombre(),
-                m.getEspecie(),
-                m.getEdad(),
-                m.getDocumentoProp()
-            };
-            modelo.addRow(fila);
-        } 
-    }
-
-    tablamas.setModel(modelo);
-}
-
-private void ListarPropietario() {
-    // Definir siempre los encabezados, aunque no haya datos
-    String[] columnas = {"Nombre", "Documento", "Teléfono"};
-    DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
-
-    ArrayList<Propietario> lista = propietarioControlador.obtenerPropietarios();
-
-    if (lista != null && !lista.isEmpty()) {
-        for (Propietario p : lista) {
-            Object[] fila = {p.getNombre(), p.getDocumento(), p.getTelefono()};
-            modelo.addRow(fila);
+        if (lista != null && !lista.isEmpty()) {
+            for (Mascotas m : lista) {
+                Object[] fila = {
+                    m.getId(),
+                    m.getNombre(),
+                    m.getEspecie(),
+                    m.getEdad(),
+                    m.getDocumentoProp()
+                };
+                modelo.addRow(fila);
+            }
         }
+
+        tablamas.setModel(modelo);
     }
 
-    tablePropietario.setModel(modelo);
-}
- 
-    
+    private void ListarPropietario() {
+        // Definir siempre los encabezados, aunque no haya datos
+        String[] columnas = {"Nombre", "Documento", "Teléfono"};
+        DefaultTableModel modelo = new DefaultTableModel(columnas, 0);
 
-  
+        ArrayList<Propietario> lista = propietarioControlador.obtenerPropietarios();
+
+        if (lista != null && !lista.isEmpty()) {
+            for (Propietario p : lista) {
+                Object[] fila = {p.getNombre(), p.getDocumento(), p.getTelefono()};
+                modelo.addRow(fila);
+            }
+        }
+
+        tablePropietario.setModel(modelo);
+    }
+
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -117,15 +115,13 @@ private void ListarPropietario() {
         txtDoc = new javax.swing.JTextField();
         txtNomProp = new javax.swing.JTextField();
         txtTel = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txAMens = new javax.swing.JTextArea();
         bttGuardarprop = new javax.swing.JButton();
         lbBlId1 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         btnGuardarMas = new javax.swing.JButton();
-        comboEspecie = new javax.swing.JComboBox<>();
         lblDocProp = new javax.swing.JLabel();
         txtDocuPropietario = new javax.swing.JTextField();
+        comboEspecie = new javax.swing.JComboBox<>();
         panelRegistrados = new javax.swing.JPanel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
@@ -145,6 +141,7 @@ private void ListarPropietario() {
         jLabel2 = new javax.swing.JLabel();
         txtDocumentoPropieta = new javax.swing.JTextField();
         ComboEspecialida2 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -156,15 +153,14 @@ private void ListarPropietario() {
         jScrollPane3 = new javax.swing.JScrollPane();
         tablePropietario = new javax.swing.JTable();
         btnBuscarResgitroProp = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnEliminarProp = new javax.swing.JButton();
+        btnEditarProp = new javax.swing.JButton();
         lblTittle = new javax.swing.JLabel();
         bttMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelPrincipal.setBackground(new java.awt.Color(0, 153, 153));
+        panelPrincipal.setBackground(new java.awt.Color(132, 169, 140));
 
         separador.setBackground(new java.awt.Color(0, 0, 0));
         separador.setForeground(new java.awt.Color(0, 0, 0));
@@ -209,11 +205,6 @@ private void ListarPropietario() {
         lblTel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblTel.setText("Telefono:");
 
-        txAMens.setColumns(20);
-        txAMens.setRows(5);
-        txAMens.setText("Tener en cuenta:\n\n* llenar todos los campos requeridos\n\n*si no se llenan los campos no se\n podra preceder con el registro\n\nGracias por utilizar nuestra plataforma.");
-        jScrollPane1.setViewportView(txAMens);
-
         bttGuardarprop.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
         bttGuardarprop.setText("Guardar propietario");
         bttGuardarprop.addActionListener(new java.awt.event.ActionListener() {
@@ -232,13 +223,6 @@ private void ListarPropietario() {
             }
         });
 
-        comboEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione uno de los siguientes", "Perro", "Gato", "" }));
-        comboEspecie.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEspecieActionPerformed(evt);
-            }
-        });
-
         lblDocProp.setText("Doc Propietario:");
 
         txtDocuPropietario.addActionListener(new java.awt.event.ActionListener() {
@@ -246,6 +230,8 @@ private void ListarPropietario() {
                 txtDocuPropietarioActionPerformed(evt);
             }
         });
+
+        comboEspecie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opcion", "Perro", "Gato", " " }));
 
         javax.swing.GroupLayout panelRegistroLayout = new javax.swing.GroupLayout(panelRegistro);
         panelRegistro.setLayout(panelRegistroLayout);
@@ -271,10 +257,10 @@ private void ListarPropietario() {
                                             .addGroup(panelRegistroLayout.createSequentialGroup()
                                                 .addComponent(lblDocProp)
                                                 .addGap(28, 28, 28)))
-                                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtEdad, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(comboEspecie, javax.swing.GroupLayout.Alignment.LEADING, 0, 1, Short.MAX_VALUE)
-                                            .addComponent(txtDocuPropietario, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)))
+                                            .addComponent(txtDocuPropietario, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                                            .addComponent(comboEspecie, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(panelRegistroLayout.createSequentialGroup()
                                         .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistroLayout.createSequentialGroup()
@@ -290,7 +276,7 @@ private void ListarPropietario() {
                     .addGroup(panelRegistroLayout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(btnGuardarMas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRegistroLayout.createSequentialGroup()
@@ -314,18 +300,13 @@ private void ListarPropietario() {
                     .addGroup(panelRegistroLayout.createSequentialGroup()
                         .addGap(81, 81, 81)
                         .addComponent(bttGuardarprop)))
-                .addGap(33, 33, 33)
+                .addGap(181, 181, 181)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(148, 148, 148))
         );
         panelRegistroLayout.setVerticalGroup(
             panelRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator2)
-            .addGroup(panelRegistroLayout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addGap(72, 72, 72))
             .addGroup(panelRegistroLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(lblInfo)
@@ -440,20 +421,23 @@ private void ListarPropietario() {
             }
         });
 
+        jButton1.setText("Limpiar campos");
+        jButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRegistradosLayout = new javax.swing.GroupLayout(panelRegistrados);
         panelRegistrados.setLayout(panelRegistradosLayout);
         panelRegistradosLayout.setHorizontalGroup(
             panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelRegistradosLayout.createSequentialGroup()
-                .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelRegistradosLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(lblInfo2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRegistradosLayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(bttEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(bttEditar))
                     .addGroup(panelRegistradosLayout.createSequentialGroup()
                         .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblBNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -472,19 +456,24 @@ private void ListarPropietario() {
                         .addContainerGap()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDocumentoPropieta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDocumentoPropieta, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelRegistradosLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addGroup(panelRegistradosLayout.createSequentialGroup()
+                                .addComponent(bttBuscar)
+                                .addGap(39, 39, 39)
+                                .addComponent(bttEliminar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bttEditar)))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 658, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(124, 124, 124)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelRegistradosLayout.createSequentialGroup()
-                    .addGap(35, 35, 35)
-                    .addComponent(bttBuscar)
-                    .addContainerGap(1127, Short.MAX_VALUE)))
         );
         panelRegistradosLayout.setVerticalGroup(
             panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,21 +505,19 @@ private void ListarPropietario() {
                         .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtDocumentoPropieta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bttBuscar)
                             .addComponent(bttEliminar)
                             .addComponent(bttEditar))
-                        .addGap(14, 14, 14))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(panelRegistradosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 50, Short.MAX_VALUE))
-            .addGroup(panelRegistradosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRegistradosLayout.createSequentialGroup()
-                    .addContainerGap(297, Short.MAX_VALUE)
-                    .addComponent(bttBuscar)
-                    .addGap(15, 15, 15)))
         );
 
         tabbedResgiPropi.addTab("Mascota Registrada", panelRegistrados);
@@ -576,51 +563,56 @@ private void ListarPropietario() {
             }
         });
 
-        jButton2.setText("jButton2");
+        btnEliminarProp.setText("Eliminar");
+        btnEliminarProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarPropActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
-
-        jButton4.setText("jButton4");
+        btnEditarProp.setText("Editar");
+        btnEditarProp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarPropActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBuscarResgitroProp)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtNombreRegistroPropietario)
+                        .addComponent(txtDocumentoResgitroProp)
+                        .addComponent(txtTelefonoRegistroProp, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBuscarResgitroProp)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminarProp)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtNombreRegistroPropietario, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
-                                .addComponent(txtDocumentoResgitroProp)
-                                .addComponent(txtTelefonoRegistroProp))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4)))))
-                .addGap(45, 45, 45)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addComponent(btnEditarProp))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel3)
-                .addGap(30, 30, 30)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNombreRegistroPropietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -635,13 +627,9 @@ private void ListarPropietario() {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscarResgitroProp)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(btnEliminarProp)
+                    .addComponent(btnEditarProp))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         tabbedResgiPropi.addTab("Propietario Registrado", jPanel1);
@@ -651,7 +639,7 @@ private void ListarPropietario() {
 
         bttMenu.setBackground(new java.awt.Color(225, 225, 225));
         bttMenu.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
-        bttMenu.setText("Menú");
+        bttMenu.setText(" ");
         bttMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bttMenuActionPerformed(evt);
@@ -663,13 +651,13 @@ private void ListarPropietario() {
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(separador, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(tabbedResgiPropi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPrincipalLayout.createSequentialGroup()
-                .addContainerGap(288, Short.MAX_VALUE)
+                .addContainerGap(295, Short.MAX_VALUE)
                 .addComponent(lblTittle)
                 .addGap(234, 234, 234)
                 .addComponent(bttMenu)
                 .addGap(120, 120, 120))
+            .addComponent(tabbedResgiPropi, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -703,149 +691,90 @@ private void ListarPropietario() {
 
     private void bttMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttMenuActionPerformed
         // TODO add your handling code here:
-        new VentanaPrincipal();
-        dispose();;
+        this.setVisible(false);      // oculta Ventana2
+        ventanaPrincipal.setVisible(true);   // muestra Ventana1
     }//GEN-LAST:event_bttMenuActionPerformed
 
     private void bttGuardarpropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttGuardarpropActionPerformed
 
+        String documento = txtDoc.getText().trim();
+        String nombreProp = txtNomProp.getText().trim();
+        String telefono = txtTel.getText().trim();
 
-    String documento = txtDoc.getText().trim();
-    String nombreProp = txtNomProp.getText().trim();
-    String telefono = txtTel.getText().trim();
+        if (documento == null || documento.isBlank() || nombreProp == null
+                || nombreProp.isBlank() || telefono == null || telefono.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (documento.length() < 5) {
+            JOptionPane.showMessageDialog(this, " La cantidad de caracteres ingresados en documento no son validos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (telefono.length() < 5) {
+            JOptionPane.showMessageDialog(this, " La cantidad de caracteres ingresados en telefono no son validos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
- if (documento == null || documento.isBlank() || nombreProp == null || 
-     nombreProp.isBlank() || telefono == null || telefono.isBlank()){
- JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Advertencia", JOptionPane.WARNING_MESSAGE);    
- return;
- } else if (documento.length() < 5 ){
- JOptionPane.showMessageDialog(this, " La cantidad de caracteres ingresados en documento no son validos.", "Advertencia", JOptionPane.WARNING_MESSAGE);    
- return ;
- } else if (telefono.length() < 5){
-      JOptionPane.showMessageDialog(this, " La cantidad de caracteres ingresados en telefono no son validos.", "Advertencia", JOptionPane.WARNING_MESSAGE);    
-    return;
- }
- 
- Propietario nuevoProp = new Propietario(nombreProp, documento, telefono);
- boolean confirmacion = propietarioControlador.guardarPropietario(nuevoProp);
- 
- if(confirmacion){
- JOptionPane.showMessageDialog(this, " El registro fue exitoso.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
- limpiarCampos();
- ListarPropietario();
- } else {
- JOptionPane.showMessageDialog(this, "El registro no se pudo completar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        Propietario nuevoProp = new Propietario(nombreProp, documento, telefono);
+        boolean confirmacion = propietarioControlador.guardarPropietario(nuevoProp);
 
- }
- 
+        if (confirmacion) {
+            JOptionPane.showMessageDialog(this, " El registro fue exitoso.", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            ListarPropietario();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "El registro no se pudo completar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
-
+        }
 
 
     }//GEN-LAST:event_bttGuardarpropActionPerformed
 
-    private void comboEspecieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEspecieActionPerformed
- 
-    comboEspecie.removeAllItems(); // limpia 
-
-    comboEspecie.addItem("Perro");
-    comboEspecie.addItem("Gato");
-    comboEspecie.addItem("Conejo");
-
-
-    }//GEN-LAST:event_comboEspecieActionPerformed
-
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void bttEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttEditarActionPerformed
-    }//GEN-LAST:event_bttEditarActionPerformed
-
-    private void bttBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttBuscarActionPerformed
-        // TODO add your handling code here:
-
-        // Obtener datos de la mascota
-        int id = Integer.parseInt(txtId.getText());
-        
-        if (id <=0) {
-            JOptionPane.showMessageDialog(this, "El valor ingresado en el campo id no es valido");
-}else {
-            Mascotas mascota = mascotaControlador.buscarMascota(id);
-           if (mascota != null) {
-                JOptionPane.showMessageDialog(this, " Nombre Mascota: " + mascota.getNombre() +
-                    "\nId Mascota: " + mascota.getId() + "\nEspecie Mascota: " + mascota.getEspecie() + 
-                    "\nEdad Mascota: " + mascota.getEdad() + "\nDocumento Propietario: " + mascota.getDocumentoProp());
-                txtBNombre.setText(mascota.getNombre());
-                txtBId.setText(String.valueOf(mascota.getId()));
-                ComboEspecialida2.setSelectedItem(mascota.getEspecie());
-                txtBEdad.setText(String.valueOf(mascota.getEdad()));
-                txtDocumentoPropieta.setText(mascota.getDocumentoProp());
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "Mascota no encontrado.");
-            }
-        } 
-    }//GEN-LAST:event_bttBuscarActionPerformed
-
-    private void bttEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttEliminarActionPerformed
-
-    }//GEN-LAST:event_bttEliminarActionPerformed
 
     private void txtDocuPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDocuPropietarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDocuPropietarioActionPerformed
 
     private void btnGuardarMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMasActionPerformed
-    String nombre = txtNombre.getText().trim();
-    String especie = comboEspecie.getSelectedItem()!= null ? comboEspecie.getSelectedItem().toString() : "";
-    
-    int id = Integer.parseInt(txtId.getText().trim());
-    int edad = Integer.parseInt(txtEdad.getText().trim());
-    String documento = txtDocuPropietario.getText().trim();
+        String nombre = txtNombre.getText().trim();
+        String especie = comboEspecie.getSelectedItem() != null ? comboEspecie.getSelectedItem().toString() : "";
 
-   if (nombre == null || nombre.isBlank() ||
-    especie == null || especie.isBlank() ||
-    documento == null || documento.isBlank())  {
-        JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        return;
-    } else if (id <= 0 || edad <= 0 ) {
-        JOptionPane.showMessageDialog(this, "No se pueden agregar datos con valores negativos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        int id = Integer.parseInt(txtId.getText().trim());
+        int edad = Integer.parseInt(txtEdad.getText().trim());
+        String documento = txtDocuPropietario.getText().trim();
 
-    }
-    
-   Propietario prop = propietarioControlador.buscarPropietario(documento);
-    if (prop == null){
-        JOptionPane.showMessageDialog(this, " propietario no encontrado, porfavor registrar un propietario primero", "ERROR", JOptionPane.ERROR_MESSAGE );  
-        return;
-    } 
-    Mascotas nuevaMascota = new Mascotas(nombre, especie, edad, id);
-    nuevaMascota.setDocumentoProp(documento);  
-    
-    boolean confirmacion = mascotaControlador.guardarMascota(nuevaMascota);
-    
-    if (confirmacion){
-        JOptionPane.showMessageDialog(this, "La mascota fue guardada correctamente", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
-        ListarMascota();
-        limpiarCampos();
-    }else{
-        JOptionPane.showMessageDialog(this, "La mascota no se pudo guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (nombre == null || nombre.isBlank()
+                || especie == null || especie.isBlank()
+                || documento == null || documento.isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben estar llenos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (id <= 0 || edad <= 0) {
+            JOptionPane.showMessageDialog(this, "No se pueden agregar datos con valores negativos", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
-    }
-    
-   
-    
-   
+        }
+
+        Propietario prop = propietarioControlador.buscarPropietario(documento);
+        if (prop == null) {
+            JOptionPane.showMessageDialog(this, " propietario no encontrado, porfavor registrar un propietario primero", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Mascotas nuevaMascota = new Mascotas(nombre, especie, edad, id);
+        nuevaMascota.setDocumentoProp(documento);
+
+        boolean confirmacion = mascotaControlador.guardarMascota(nuevaMascota);
+
+        if (confirmacion) {
+            JOptionPane.showMessageDialog(this, "La mascota fue guardada correctamente", "Confirmacion", JOptionPane.INFORMATION_MESSAGE);
+            ListarMascota();
+            limpiarCampos();
+        } else {
+            JOptionPane.showMessageDialog(this, "La mascota no se pudo guardar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+        }
+
+
     }//GEN-LAST:event_btnGuardarMasActionPerformed
-
-    private void ComboEspecialida2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboEspecialida2ActionPerformed
-      comboEspecie.removeAllItems(); // limpia 
-
-    comboEspecie.addItem("Perro");
-    comboEspecie.addItem("Gato");
-    comboEspecie.addItem("Conejo");
-
-    }//GEN-LAST:event_ComboEspecialida2ActionPerformed
 
     private void txtNombreRegistroPropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreRegistroPropietarioActionPerformed
         // TODO add your handling code here:
@@ -856,28 +785,177 @@ private void ListarPropietario() {
     }//GEN-LAST:event_txtTelefonoRegistroPropActionPerformed
 
     private void btnBuscarResgitroPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarResgitroPropActionPerformed
-    String documento = txtDocumentoResgitroProp.getText();
-    
-    if (documento == null || documento.isBlank()){
-        JOptionPane.showMessageDialog(this, " Error, porfavor Ingresar valores validos");
-    }else {
-        Propietario prop = propietarioControlador.buscarPropietario(documento);
-        if (prop == null){
-        JOptionPane.showMessageDialog(this, "Nombre Propietario: " + prop.getNombre() + "\nDocumento Propietario: " + prop.getDocumento()
-        + "\nTelefono Propietario: " + prop.getTelefono());
-        }else{
-        JOptionPane.showMessageDialog(this, "El propietario no fue encontrado", "Error" , JOptionPane.ERROR_MESSAGE);  
+        String documento = txtDocumentoResgitroProp.getText();
+
+        if (documento == null || documento.isBlank()) {
+            JOptionPane.showMessageDialog(this, " Error, porfavor Ingresar valores validos");
+        } else {
+            Propietario prop = propietarioControlador.buscarPropietario(documento);
+            if (prop != null) {
+                JOptionPane.showMessageDialog(this, "Nombre Propietario: " + prop.getNombre() + "\nDocumento Propietario: " + prop.getDocumento()
+                        + "\nTelefono Propietario: " + prop.getTelefono());
+
+                txtNombreRegistroPropietario.setText(prop.getNombre());
+                txtTelefonoRegistroProp.setText(prop.getTelefono());
+            } else {
+                JOptionPane.showMessageDialog(this, "El propietario no fue encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
 
         }
-    
-    
-   
-}
 
 
     }//GEN-LAST:event_btnBuscarResgitroPropActionPerformed
 
-    private void limpiarCampos(){
+    private void bttEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttEditarActionPerformed
+   int fila = tablamas.getSelectedRow();
+        if (fila != -1 && fila >= 0) {
+
+            int id  = Integer.parseInt(tablamas.getValueAt(fila, 0).toString());
+            Mascotas mascota = mascotaControlador.buscarMascota(id);
+         if (mascota != null) {
+        int idActual = mascota.getId();
+        String nuevoNombre = JOptionPane.showInputDialog(this, "Nuevo nombre:");
+        String nuevaEspecie = JOptionPane.showInputDialog(this, "Nueva Especie:\n(Recomendacion ingresar la especie (Perro o Gato) en mayuscula)");
+        int nuevaEdad = Integer.parseInt(JOptionPane.showInputDialog(this, "Nueva Edad:"));
+          boolean editado = mascotaControlador.editarMascota(idActual, nuevoNombre, nuevaEspecie, nuevaEdad);
+                if (editado) {
+                    JOptionPane.showMessageDialog(this, "La mascota fue editado correctamente.");
+                    ListarMascota();
+                } else {
+                    JOptionPane.showMessageDialog(this, "La mascota no se pudo editar.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una mascota valida.");
+        }
+
+    }//GEN-LAST:event_bttEditarActionPerformed
+
+    private void bttBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttBuscarActionPerformed
+        // TODO add your handling code here:
+
+        String textoId = txtBId.getText().trim();
+
+        if (textoId.isEmpty() || !textoId.matches("\\d+")) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número válido en el campo ID.");
+            return;
+        }
+
+        int id = Integer.parseInt(textoId);
+
+        if (id <= 0) {
+            JOptionPane.showMessageDialog(this, "El valor ingresado en el campo ID no es válido.");
+        } else {
+            Mascotas mascota = mascotaControlador.buscarMascota(id);
+
+            if (mascota != null) {
+                JOptionPane.showMessageDialog(this,
+                        "Nombre Mascota: " + mascota.getNombre()
+                        + "\nId Mascota: " + mascota.getId()
+                        + "\nEspecie Mascota: " + mascota.getEspecie()
+                        + "\nEdad Mascota: " + mascota.getEdad()
+                        + "\nDocumento Propietario: " + mascota.getDocumentoProp()
+                );
+
+                txtBNombre.setText(mascota.getNombre());
+                txtBId.setText(String.valueOf(mascota.getId()));
+                ComboEspecialida2.setSelectedItem(mascota.getEspecie());
+                txtBEdad.setText(String.valueOf(mascota.getEdad()));
+                txtDocumentoPropieta.setText(mascota.getDocumentoProp());
+            } else {
+                JOptionPane.showMessageDialog(this, "Mascota no encontrada.");
+            }
+        }
+    }//GEN-LAST:event_bttBuscarActionPerformed
+
+    private void bttEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttEliminarActionPerformed
+        int fila = tablamas.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione una mascota para eliminar.");
+            return;
+        }
+        int id = Integer.parseInt(tablamas.getValueAt(fila, 0).toString());
+        Mascotas mascota = mascotaControlador.buscarMascota(id);
+
+        if (mascota != null) {
+            boolean eliminado = mascotaControlador.eliminarMascota(id);
+            if (eliminado) {
+                JOptionPane.showMessageDialog(this, "Mascota eliminada correctamente.");
+                ListarMascota();
+            } else {
+                JOptionPane.showMessageDialog(this, "Mascota no se pudo eliminar correctamente.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "La mascota no existe.");
+        }
+    }//GEN-LAST:event_bttEliminarActionPerformed
+
+    private void ComboEspecialida2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboEspecialida2ActionPerformed
+        comboEspecie.removeAllItems(); // limpia
+       
+        comboEspecie.addItem("Perro");
+        comboEspecie.addItem("Gato");
+        comboEspecie.addItem("Conejo");
+    }//GEN-LAST:event_ComboEspecialida2ActionPerformed
+
+    private void btnEliminarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPropActionPerformed
+        int fila = tablePropietario.getSelectedRow();
+        if (fila != -1 && fila >= 0) {
+
+            String documento = tablePropietario.getValueAt(fila, 1).toString();
+            Propietario prop = propietarioControlador.buscarPropietario(documento);
+            if (prop != null) {
+                boolean eliminado = propietarioControlador.eliminarPropietario(documento);
+                if (eliminado) {
+                    JOptionPane.showMessageDialog(this, "El propietario fue eliminado correctamente.");
+                    ListarPropietario();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El propietario no se pudo eliminar.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Propietario no encontrado.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un propietario para eliminar.");
+        }
+    }//GEN-LAST:event_btnEliminarPropActionPerformed
+
+    private void btnEditarPropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarPropActionPerformed
+
+        int fila = tablePropietario.getSelectedRow();
+        if (fila != -1 && fila >= 0) {
+
+            String documento = tablePropietario.getValueAt(fila, 1).toString();
+            Propietario prop = propietarioControlador.buscarPropietario(documento);
+            if (prop != null) {
+        String DocumentoActual = prop.getDocumento();
+        String nuevoNombre = JOptionPane.showInputDialog(this, "Nuevo nombre:");
+        String nuevaTelefono = JOptionPane.showInputDialog(this, "Nueva Telefono:");
+          boolean editado = propietarioControlador.editarPropietario(DocumentoActual, nuevoNombre, nuevaTelefono);
+                if (editado) {
+                    JOptionPane.showMessageDialog(this, "El propietario fue editado correctamente.");
+                    ListarPropietario();
+                } else {
+                    JOptionPane.showMessageDialog(this, "El propietario no se pudo editar.");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un propietario valido.");
+        }
+
+
+    }//GEN-LAST:event_btnEditarPropActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtBId.setText(null);
+        txtBNombre.setText(null);
+        ComboEspecialida2.setToolTipText(null);
+        txtBEdad.setText(null);
+        txtDocumentoPropieta.setText(null);    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void limpiarCampos() {
         txtDoc.setText(null);
         txtNomProp.setText(null);
         txtTel.setText(null);
@@ -887,8 +965,7 @@ private void ListarPropietario() {
         txtEdad.setText(null);
         txtDocuPropietario.setText(null);
     }
-    
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -915,7 +992,6 @@ private void ListarPropietario() {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRegistro().setVisible(true);
             }
         });
     }
@@ -923,6 +999,8 @@ private void ListarPropietario() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> ComboEspecialida2;
     private javax.swing.JButton btnBuscarResgitroProp;
+    private javax.swing.JButton btnEditarProp;
+    private javax.swing.JButton btnEliminarProp;
     private javax.swing.JButton btnGuardarMas;
     private javax.swing.JButton bttBuscar;
     private javax.swing.JButton bttEditar;
@@ -930,9 +1008,7 @@ private void ListarPropietario() {
     private javax.swing.JButton bttGuardarprop;
     private javax.swing.JButton bttMenu;
     private javax.swing.JComboBox<String> comboEspecie;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -940,7 +1016,6 @@ private void ListarPropietario() {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
@@ -969,7 +1044,6 @@ private void ListarPropietario() {
     private javax.swing.JTabbedPane tabbedResgiPropi;
     private javax.swing.JTable tablamas;
     private javax.swing.JTable tablePropietario;
-    private javax.swing.JTextArea txAMens;
     private javax.swing.JTextField txtBEdad;
     private javax.swing.JTextField txtBId;
     private javax.swing.JTextField txtBNombre;
